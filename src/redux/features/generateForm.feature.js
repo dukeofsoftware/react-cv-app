@@ -2,28 +2,37 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 
-
 const initialState = {
    
     formInput:{
-        firstName :"Emre",
-        lastName:"Kozan",
-        title:"CV",
-        phoneNumber:"05050588123",
-        adress:"Üsküdar",
-        email:"kozanfurkanemre@gmail.com",
-        message:"Deneme",
-        position:"sunior developer",
-        company:"Haydarpaşa Lisesi",
-        city:"İstanbul",
-        from:"",
-        to:"",
-        universityName:"",
-        universityCity:"",
-        degree:"",
-        subject:"",
-        universityFrom:"",
-        universityTo:"",
+        firstName :"John ",
+        lastName:"Doe",
+        title:"Senior Web Developer",
+        photo:"",
+        phoneNumber:"123456789",
+        adress:"Example Street 10",
+        email:"john.doe@gmail.com",
+        message:"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque ex sequi, fugit excepturi reiciendis commodi ab eveniet asperiores consequatur laboriosam.",
+
+        experience:[{
+
+            position:"Senior Web Developer",
+            company:"Facebook Inc., Menlo Park",
+            city:"İstanbul",
+            from:"2015",
+            to:"Present",
+    
+            }],
+      education:[  
+        {
+
+        universityName:"University of Technology",
+        universityCity:"Oklahoma",
+        degree:"Master",
+        subject:"Science",
+        universityFrom:"2008",
+        universityTo:"2010",
+        }]
     }
 
 }
@@ -43,9 +52,17 @@ let generateSlice = createSlice({
             }
 
         },
+        updateExperienceState:function(state,action){
+            console.log(action.payload)
+            state.formInput.experience.push(action.payload)
+        },
+        updateEducationState:function(state,action){
+            console.log(action.payload);
+            state.formInput.education.push(action.payload)
+        }
        
         
     }
 });
-export const {updateState} = generateSlice.actions;
+export const {updateState,updateEducationState,updateExperienceState} = generateSlice.actions;
 export default generateSlice.reducer;

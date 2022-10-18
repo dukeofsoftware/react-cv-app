@@ -1,16 +1,57 @@
-import React from "react";
-import { Input, Textarea,Button } from "@material-tailwind/react";
+import React, { useState } from "react";
+import { Input, Textarea, Button } from "@material-tailwind/react";
 import { useDispatch } from "react-redux";
-import { updateState } from "../redux/features/generateForm.feature";
+import { updateEducationState, updateExperienceState, updateState } from "../redux/features/generateForm.feature";
 
 const Inputs = () => {
   let dispatch = useDispatch();
 
-  /*   let formState = useSelector((state) => {
-    return state["forms"];
+  let [state, setState] = useState({
+    eğitimler: {
+      universityName: "",
+      universityCity: "",
+      degree: "",
+      subject: "",
+      universityFrom: "",
+      universityTo: "",
+    },
+    experience: {
+      position: "",
+      company: "",
+      city: "",
+      from: "",
+      to: "",
+    },
   });
-  let { forms } = formState;
- */
+  let changeInputs = (event) => {
+    setState({
+      ...state,
+      experience: {
+        ...state.experience,
+        [event.target.name]: event.target.value,
+      },
+    });
+
+  };
+let addExperienceInput= ()=>{
+  dispatch(updateExperienceState(state.experience))
+
+}
+  let changeEducationInputs = (event) => {
+    setState({
+      ...state,
+      eğitimler: {
+        ...state.eğitimler,
+        [event.target.name]: event.target.value,
+      },
+    });
+
+  };
+  let addEducationInput = ()=>{
+    dispatch(updateEducationState(state.eğitimler))
+
+  }
+
   let updateInput = (event) => {
     let myEvent = {
       [event.target.name]: event.target.value,
@@ -18,12 +59,13 @@ const Inputs = () => {
     };
     dispatch(updateState(myEvent));
   };
-  
 
+
+  
   return (
-    <div className="container mx-auto mt-5 ">
+    <div className="min-w-[400px] max-w-[700px]  mx-auto ">
       <form>
-      {/* Kişisel Bilgiler */}
+        {/* Kişisel Bilgiler */}
         <div className="flex flex-col gap-5 p-5 shadow-lg">
           <Input
             type="text"
@@ -46,7 +88,7 @@ const Inputs = () => {
             name="title"
             label="Title"
           />
-          <Input type="file" label="Photo" />
+          <Input type="text" label="Photo" name="photo" onChange={updateInput}/>
           <Input
             type="text"
             onChange={updateInput}
@@ -70,40 +112,40 @@ const Inputs = () => {
           />
           <Textarea onChange={updateInput} name="message" label="Message" />
         </div>
-{/* Tecrübeler  */}
+        {/* Tecrübeler  */}
         <div className="flex flex-col gap-5 p-5 shadow-lg">
           <h1 className="h3">Experience</h1>
           <Input
             type="text"
-            onChange={updateInput}
+            onChange={changeInputs}
             variant="outlined"
             name="position"
             label="Position"
           />
           <Input
             type="text"
-            onChange={updateInput}
+            onChange={changeInputs}
             variant="outlined"
             name="company"
             label="Company"
           />
           <Input
             type="text"
-            onChange={updateInput}
+            onChange={changeInputs}
             variant="outlined"
             name="city"
             label="city"
           />
           <Input
             type="text"
-            onChange={updateInput}
+            onChange={changeInputs}
             variant="outlined"
             name="from"
             label="From"
           />
           <Input
             type="text"
-            onChange={updateInput}
+            onChange={changeInputs}
             variant="outlined"
             name="to"
             label="To"
@@ -111,54 +153,61 @@ const Inputs = () => {
         </div>
         {/* Butonlar */}
         <div className="flex flex-col gap-5 p-5 shadow-lg">
-          <Button color="red" variant="gradient">Sil</Button>
-          <Button color="green"  variant="gradient">Ekle</Button>
-
+        
+          <Button color="green" variant="gradient" onClick={addExperienceInput}>
+            Ekle
+          </Button>
         </div>
         <div className="flex flex-col gap-5 p-5 shadow-lg">
           <h1 className="h3">Education</h1>
           <Input
             type="text"
-            onChange={updateInput}
+            onChange={changeEducationInputs}
             variant="outlined"
             name="universityName"
             label="University name"
           />
           <Input
             type="text"
-            onChange={updateInput}
+            onChange={changeEducationInputs}
             variant="outlined"
             name="universityCity"
             label="City"
           />
           <Input
             type="text"
-            onChange={updateInput}
+            onChange={changeEducationInputs}
             variant="outlined"
             name="degree"
             label="Degree"
           />
           <Input
             type="text"
-            onChange={updateInput}
+            onChange={changeEducationInputs}
             variant="outlined"
             name="subject"
             label="Subject"
           />
           <Input
             type="text"
-            onChange={updateInput}
+            onChange={changeEducationInputs}
             variant="outlined"
             name="universityFrom"
             label="From"
           />
           <Input
             type="text"
-            onChange={updateInput}
+            onChange={changeEducationInputs}
             variant="outlined"
             name="universityTo"
             label="To"
           />
+           <div className="flex flex-col gap-5 p-5 shadow-lg">
+         
+          <Button color="green" variant="gradient" onClick={addEducationInput}>
+            Ekle
+          </Button>
+        </div>
         </div>
       </form>
     </div>
